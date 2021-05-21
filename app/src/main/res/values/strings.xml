@@ -1,0 +1,33 @@
+<resources>
+    <string name="app_name">MyPhoto</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="home">Home</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="searchFragment">Search...</string>
+    <string name="posts_Profilefrgment">Posts</string>
+    <string name="followers_Profilefrgment">Followers</string>
+    <string name="following_Profilefrgment">Following</string>
+    <string name="edit_profile_ProfileFragment">Edit Profile</string>
+    <string name="full_name_Settings">Full Name</string>
+    <string name="user_name_Settings">User Name</string>
+    <string name="biogram_Settings">Biogram</string>
+    <string name="emailRequired">Email is required.</string>
+    <string name="passwordRequired">Password is required.</string>
+    <string name="passMess">Please wait, this may take a while...</string>
+    <string name="loginTitle">Login</string>
+    <string name="errorString">\"Error: \"</string>
+    <string name="SignUpTitle">SignUp</string>
+    <string name="follow">Follow</string>
+    <string name="following">Following</string>
+    <string name="updateSucces">Account Informations has been updated succesfully...</string>
+    <string name="usernameWrite">Please write user name fires</string>
+    <string name="fullnameWrite">Please write full name fires</string>
+    <string name="change_image">Change Image</string>
+    <string name="imageSelectWarning">Please select image first</string>
+    <string name="decription_AddPost">Say something about your post</string>
+    <string name="descriptionRequired">Please write description</string>
+    <string name="PostSuccess">Post uploaded successfully</string>
+</resources>
