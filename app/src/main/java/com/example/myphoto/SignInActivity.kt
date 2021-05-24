@@ -53,15 +53,9 @@ class SignInActivity : AppCompatActivity() {
                     }
                 }
 
-
             }
 
         }
-
-
-
-
-
 
     }
 
@@ -74,11 +68,6 @@ class SignInActivity : AppCompatActivity() {
             startActivity(intent)
             finish()
         }
-
-
-
-
     }
-
 
 }

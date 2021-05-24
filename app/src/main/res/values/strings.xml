@@ -30,4 +30,16 @@
     <string name="decription_AddPost">Say something about your post</string>
     <string name="descriptionRequired">Please write description</string>
     <string name="PostSuccess">Post uploaded successfully</string>
+    <string name="defaultBio">Default bio</string>
+    <string name="defaultPicture"><![CDATA[https://firebasestorage.googleapis.com/v0/b/myphoto-bd4ac.appspot.com/o/Default%20Images%2Fprofile.png?alt=media&token=3f37b64e-f24a-4988-8c55-c75d6173c821]]></string>
+    <string name="fullnameRequired">Full name is required.</string>
+    <string name="usernameRequired">User name is required.</string>
+    <string name="TOASTcreateAcc">Account has been created succesfully...</string>
+    <string name="commentsBar">Comments</string>
+    <string name="commentActivity">write your comment...</string>
+    <string name="commentWrite">Please write comment first</string>
+    <string name="publishComments">Publish</string>
+    <string name="user_nameComment">user name</string>
+    <string name="commentsComments">comments</string>
+    <string name="photoDetailBar">Photo</string>
 </resources>

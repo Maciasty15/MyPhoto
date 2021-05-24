@@ -128,9 +128,9 @@ class AccountSettingsActivity : AppCompatActivity() {
                 {
                     val user = snapshot.getValue<User>(User::class.java)
                     Picasso.get().load(user!!.getImage()).placeholder(R.drawable.profile).into(profile_image_view_profile_fragment)
-                    username_profile_fragment.setText(user!!.getUsername())
-                    full_name_profile_fragment.setText(user!!.getFullname())
-                    biogram_profile_fragment.setText(user!!.getBio())
+                    username_profile_fragment.setText(user.getUsername())
+                    full_name_profile_fragment.setText(user.getFullname())
+                    biogram_profile_fragment.setText(user.getBio())
 
                 }
             }
@@ -164,9 +164,9 @@ class AccountSettingsActivity : AppCompatActivity() {
                 progressDialog.setMessage("Please wait, we are updating your profile...")
                 progressDialog.show()
 
-                val fileRef = storageProfilePicRef!!.child(firebaseUser!!.uid + ".jpg")
+                val fileRef = storageProfilePicRef!!.child(firebaseUser.uid + ".jpg")
 
-                var uploadTask: StorageTask<*>
+                val uploadTask: StorageTask<*>
                 uploadTask = fileRef.putFile(imageUri!!)
 
                 uploadTask.continueWithTask(Continuation <UploadTask.TaskSnapshot, Task<Uri>>{ task ->

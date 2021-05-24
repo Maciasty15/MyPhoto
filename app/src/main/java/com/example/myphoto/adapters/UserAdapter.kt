@@ -20,9 +20,8 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.squareup.picasso.Picasso
 import de.hdodenhof.circleimageview.CircleImageView
-import kotlinx.android.synthetic.main.user_item_layout.view.*
 
-class UserAdapter(private var mContext: Context, private var mUser: List<User>,private var isFragemnt: Boolean = false): RecyclerView.Adapter<UserAdapter.ViewHolder>() {
+class UserAdapter(private var mContext: Context, private var mUser: List<User>, private var isFragemnt: Boolean = false): RecyclerView.Adapter<UserAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserAdapter.ViewHolder {
         val view = LayoutInflater.from(mContext).inflate(R.layout.user_item_layout, parent, false)

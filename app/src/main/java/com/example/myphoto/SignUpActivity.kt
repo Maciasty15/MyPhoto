@@ -21,19 +21,19 @@ class SignUpActivity : AppCompatActivity() {
         signin_link_btn.setOnClickListener { startActivity(Intent(this, SignInActivity::class.java)) }
 
         signup_btn.setOnClickListener {
-            CreateAccount()
+            createAccount()
         }
     }
 
-    private fun CreateAccount() {
+    private fun createAccount() {
         val fullName = fullname_signup.text.toString()
         val userName = usernick_signup.text.toString()
         val email = email_signup.text.toString()
         val password = password_signup.text.toString()
 
         when{
-            TextUtils.isEmpty(fullName) -> Toast.makeText(this, "Full name is required.", Toast.LENGTH_LONG).show()
-            TextUtils.isEmpty(userName) -> Toast.makeText(this, "User name is required.", Toast.LENGTH_LONG).show()
+            TextUtils.isEmpty(fullName) -> Toast.makeText(this, getString(R.string.fullnameRequired), Toast.LENGTH_LONG).show()
+            TextUtils.isEmpty(userName) -> Toast.makeText(this, getString(R.string.usernameRequired), Toast.LENGTH_LONG).show()
             TextUtils.isEmpty(email) -> Toast.makeText(this, getString(R.string.emailRequired), Toast.LENGTH_LONG).show()
             TextUtils.isEmpty(password) -> Toast.makeText(this, getString(R.string.passwordRequired), Toast.LENGTH_LONG).show()
 
@@ -73,14 +73,22 @@ class SignUpActivity : AppCompatActivity() {
         userMap["fullname"] = fullName.toLowerCase()
         userMap["username"] = userName.toLowerCase()
         userMap["email"] = email
-        userMap["bio"] = "Default bio"
-        userMap["image"] = "https://firebasestorage.googleapis.com/v0/b/myphoto-bd4ac.appspot.com/o/Default%20Images%2Fprofile.png?alt=media&token=3f37b64e-f24a-4988-8c55-c75d6173c821"
+        userMap["bio"] = getString(R.string.defaultBio)
+        userMap["image"] = getString(R.string.defaultPicture)
 
         usersRef.child(currentUserID).setValue(userMap).addOnCompleteListener { task ->
             if(task.isSuccessful)
             {
                 progressDialog.dismiss()
-                Toast.makeText(this,"Account has been created succesfully...",Toast.LENGTH_LONG).show()
+                Toast.makeText(this,getString(R.string.TOASTcreateAcc),Toast.LENGTH_LONG).show()
+
+
+                FirebaseDatabase.getInstance().reference
+                            .child("Follow").child(currentUserID)
+                            .child("Following").child(currentUserID)
+                            .setValue(true)
+
+
 
                 val intent = Intent(this@SignUpActivity, MainActivity::class.java)
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
