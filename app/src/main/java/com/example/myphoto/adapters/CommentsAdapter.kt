@@ -76,5 +76,4 @@ class CommentsAdapter(private val mContext: Context, private val mComment: Mutab
         })
     }
 
-
 }

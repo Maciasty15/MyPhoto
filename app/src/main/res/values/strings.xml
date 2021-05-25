@@ -42,4 +42,14 @@
     <string name="user_nameComment">user name</string>
     <string name="commentsComments">comments</string>
     <string name="photoDetailBar">Photo</string>
+    <string name="startedFollowing">Started following you</string>
+    <string name="likedPost">Liked your post</string>
+    <string name="addingNewDialog">Adding New Post</string>
+    <string name="waitDialog">Please wait, we are adding your post...</string>
+    <string name="jpg">.jpg</string>
+    <string name="settingsDialog">Account Settings</string>
+    <string name="waitDialogSettings">Please wait, we are updating your profile...</string>
+    <string name="postLikes">\" likes\"</string>
+    <string name="viewAllPost">\"view all \"</string>
+    <string name="commentsPost">\" comments\"</string>
 </resources>

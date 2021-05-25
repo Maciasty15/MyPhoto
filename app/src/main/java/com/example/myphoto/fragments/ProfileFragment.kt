@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myphoto.AccountSettingsActivity
 import com.example.myphoto.R
+import com.example.myphoto.ShowUsersActivity
 import com.example.myphoto.adapters.MyPhotoAdapter
 import com.example.myphoto.models.Post
 import com.example.myphoto.models.User
@@ -103,6 +104,20 @@ class ProfileFragment : Fragment() {
             recyclerViewUploadPic.visibility = View.GONE
         }
 
+        view.total_followers.setOnClickListener {
+            val intent = Intent(context, ShowUsersActivity::class.java)
+            intent.putExtra("id", profileId)
+            intent.putExtra("title", "followers")
+            startActivity(intent)
+        }
+
+        view.total_following.setOnClickListener {
+            val intent = Intent(context, ShowUsersActivity::class.java)
+            intent.putExtra("id", profileId)
+            intent.putExtra("title", "following")
+            startActivity(intent)
+        }
+
 
         view.edit_account_settings_btn.setOnClickListener {
             val getButtonText = view.edit_account_settings_btn.text.toString()
@@ -126,6 +141,8 @@ class ProfileFragment : Fragment() {
                                 .setValue(true)
 
                     }
+
+                    addNotifications()
                 }
                 getButtonText == "Following" ->
                 {
@@ -278,7 +295,7 @@ class ProfileFragment : Fragment() {
             {
                 if (snapshot.exists())
                 {
-                    val user = snapshot.getValue<User>(User::class.java)
+                    val user = snapshot.getValue(User::class.java)
                     Picasso.get().load(user!!.getImage()).placeholder(R.drawable.profile).into(view?.image_profile_fragment)
                     view?.profile_fragment_username?.text = user.getUsername()
                     view?.full_name_profile_fragment?.text = user.getFullname()
@@ -403,6 +420,19 @@ class ProfileFragment : Fragment() {
         val pref = context?.getSharedPreferences("PREFS", Context.MODE_PRIVATE)?.edit()
         pref?.putString("profileId", firebaseUser.uid)
         pref?.apply()
+    }
+
+    private fun addNotifications()
+    {
+        val notiRef = FirebaseDatabase.getInstance().reference.child("Notifications").child(profileId)
+
+        val notiMap = HashMap<String, Any>()
+        notiMap["userid"] = firebaseUser.uid
+        notiMap["text"] = "Started following you"
+        notiMap["postid"] = ""
+        notiMap["ispost"] = false
+
+        notiRef.push().setValue(notiMap)
     }
 
 

@@ -1,6 +1,7 @@
 package com.example.myphoto.adapters
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +10,7 @@ import android.widget.TextView
 import androidx.annotation.NonNull
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
+import com.example.myphoto.MainActivity
 import com.example.myphoto.R
 import com.example.myphoto.fragments.ProfileFragment
 import com.example.myphoto.models.User
@@ -20,6 +22,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.squareup.picasso.Picasso
 import de.hdodenhof.circleimageview.CircleImageView
+import kotlinx.android.synthetic.main.activity_comments.*
 
 class UserAdapter(private var mContext: Context, private var mUser: List<User>, private var isFragemnt: Boolean = false): RecyclerView.Adapter<UserAdapter.ViewHolder>() {
 
@@ -44,12 +47,23 @@ class UserAdapter(private var mContext: Context, private var mUser: List<User>, 
 
         //przejscie na profil z fragmentu search
         holder.itemView.setOnClickListener ( View.OnClickListener {
-            val pref = mContext.getSharedPreferences("PREFS", Context.MODE_PRIVATE).edit()
-            pref.putString("profileId",user.getUid())
-            pref.apply()
 
-            (mContext as FragmentActivity).supportFragmentManager.beginTransaction()
-                    .replace(R.id.fragment_container, ProfileFragment()).commit()
+            if(isFragemnt)
+            {
+                val pref = mContext.getSharedPreferences("PREFS", Context.MODE_PRIVATE).edit()
+                pref.putString("profileId", user.getUid())
+                pref.apply()
+
+                (mContext as FragmentActivity).supportFragmentManager.beginTransaction()
+                        .replace(R.id.fragment_container, ProfileFragment()).commit()
+            }
+            else
+            {
+                val intent = Intent(mContext, MainActivity::class.java)
+                intent.putExtra("publisherId", user.getUid())
+                mContext.startActivities(arrayOf(intent))
+            }
+
         } )
 
         //przycisk follow i logika
@@ -77,6 +91,7 @@ class UserAdapter(private var mContext: Context, private var mUser: List<User>, 
                                 }
                             }
                     }
+                addNotifications(user.getUid())
             }
             else
             {
@@ -146,5 +161,18 @@ class UserAdapter(private var mContext: Context, private var mUser: List<User>, 
             }
 
         })
+    }
+
+    private fun addNotifications(userId: String)
+    {
+        val notiRef = FirebaseDatabase.getInstance().reference.child("Notifications").child(userId)
+
+        val notiMap = HashMap<String, Any>()
+        notiMap["userid"] = firebaseUser!!.uid
+        notiMap["text"] = "Started following you"
+        notiMap["postid"] = ""
+        notiMap["ispost"] = false
+
+        notiRef.push().setValue(notiMap)
     }
 }

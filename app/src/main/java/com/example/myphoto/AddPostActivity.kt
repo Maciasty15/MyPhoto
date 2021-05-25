@@ -37,11 +37,9 @@ class AddPostActivity : AppCompatActivity() {
 
         save_new_post_bnt.setOnClickListener { uploadImage() }
 
-
         CropImage.activity()
                 .setAspectRatio(2,1)
                 .start(this@AddPostActivity)
-
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -67,11 +65,11 @@ class AddPostActivity : AppCompatActivity() {
 
             else -> {
                 val progressDialog = ProgressDialog(this)
-                progressDialog.setTitle("Adding New Post")
-                progressDialog.setMessage("Please wait, we are adding your post...")
+                progressDialog.setTitle(getString(R.string.addingNewDialog))
+                progressDialog.setMessage(getString(R.string.waitDialog))
                 progressDialog.show()
 
-                val fileRef = storagePostPicRef!!.child(System.currentTimeMillis().toString() + ".jpg")
+                val fileRef = storagePostPicRef!!.child(System.currentTimeMillis().toString() + getString(R.string.jpg))
 
                 val uploadTask: StorageTask<*>
                 uploadTask = fileRef.putFile(imageUri!!)

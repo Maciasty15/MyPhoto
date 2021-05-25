@@ -39,10 +39,9 @@ class CommentsActivity : AppCompatActivity()
         firebaseUser = FirebaseAuth.getInstance().currentUser
 
 
-        var recyclerView: RecyclerView? = null
-        recyclerView = findViewById(R.id.recycer_view_comments)
+        val recyclerView: RecyclerView = findViewById(R.id.recycer_view_comments)
         val linearLayoutManager = LinearLayoutManager(this)
-        linearLayoutManager.reverseLayout = true
+        //linearLayoutManager.reverseLayout = true
         recyclerView.layoutManager = linearLayoutManager
 
         commentsList = ArrayList()
@@ -77,6 +76,8 @@ class CommentsActivity : AppCompatActivity()
         commentsMap["publisher"] = firebaseUser!!.uid
 
         commentsRef.push().setValue(commentsMap)
+
+        addNotifications()
         add_comment!!.text.clear()
     }
 
@@ -146,5 +147,18 @@ class CommentsActivity : AppCompatActivity()
             }
 
         })
+    }
+
+    private fun addNotifications()
+    {
+        val notiRef = FirebaseDatabase.getInstance().reference.child("Notifications").child(publisherId)
+
+        val notiMap = HashMap<String, Any>()
+        notiMap["userid"] = firebaseUser!!.uid
+        notiMap["text"] = "Commented: " + add_comment.text.toString()
+        notiMap["postid"] = postId
+        notiMap["ispost"] = true
+
+        notiRef.push().setValue(notiMap)
     }
 }

@@ -49,14 +49,13 @@ class SearchFragment : Fragment() {
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int)
             {
-                if (view.search_edit_text.text.toString() == "")
+                if (view.search_edit_text.text.toString() != "")
                 {
 
                 }
                 else
                 {
                     recyclerView?.visibility = View.VISIBLE
-
                     retrieveUsers()
                     searchUser(s.toString().toLowerCase())
                 }
@@ -73,7 +72,7 @@ class SearchFragment : Fragment() {
 
     private fun searchUser(input: String)
     {
-        val query = FirebaseDatabase.getInstance().getReference()
+        val query = FirebaseDatabase.getInstance().reference
             .child("Users")
             .orderByChild("fullname")
             .startAt(input)
@@ -97,14 +96,15 @@ class SearchFragment : Fragment() {
                 userAdapter?.notifyDataSetChanged()
             }
 
-            override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
+            override fun onCancelled(error: DatabaseError)
+            {
             }
 
         })
     }
-    private fun retrieveUsers() {
-        val usersRef = FirebaseDatabase.getInstance().getReference().child("Users")
+    private fun retrieveUsers()
+    {
+        val usersRef = FirebaseDatabase.getInstance().reference.child("Users")
         usersRef.addValueEventListener(object: ValueEventListener
         {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
@@ -124,11 +124,9 @@ class SearchFragment : Fragment() {
                 }
             }
 
-            override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
+            override fun onCancelled(error: DatabaseError)
+            {
             }
-
-
         })
     }
 

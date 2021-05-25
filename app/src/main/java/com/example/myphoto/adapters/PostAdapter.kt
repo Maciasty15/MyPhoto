@@ -11,6 +11,7 @@ import androidx.annotation.NonNull
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myphoto.CommentsActivity
 import com.example.myphoto.R
+import com.example.myphoto.ShowUsersActivity
 import com.example.myphoto.models.Post
 import com.example.myphoto.models.User
 import com.google.firebase.auth.FirebaseAuth
@@ -21,6 +22,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.squareup.picasso.Picasso
 import de.hdodenhof.circleimageview.CircleImageView
+
 
 class PostAdapter(private val mContext: Context, private  val mPost: List<Post>): RecyclerView.Adapter<PostAdapter.ViewHolder>()
 {
@@ -61,14 +63,20 @@ class PostAdapter(private val mContext: Context, private  val mPost: List<Post>)
             if (holder.likeButton.tag == "Like")
             {
                 FirebaseDatabase.getInstance().reference.child("Likes").child(post.getPostid()).child(firebaseUser!!.uid).setValue(true)
+                addNotifications(post.getPublisher(),post.getPostid())
                 
             }
             else
             {
                 FirebaseDatabase.getInstance().reference.child("Likes").child(post.getPostid()).child(firebaseUser!!.uid).removeValue()
-                //val intent = Intent(mContext, MainActivity::class.java)
-                //mContext.startActivity(intent)
             }
+        }
+
+        holder.likes.setOnClickListener {
+            val intent = Intent(mContext, ShowUsersActivity::class.java)
+            intent.putExtra("id", post.getPostid())
+            intent.putExtra("title", "likes")
+            mContext.startActivity(intent)
         }
 
         holder.commentButton.setOnClickListener {
@@ -105,9 +113,9 @@ class PostAdapter(private val mContext: Context, private  val mPost: List<Post>)
 
         likesRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                if (snapshot.child(firebaseUser!!.uid).exists())
+                if (snapshot.exists())
                 {
-                    likes.text = snapshot.childrenCount.toString() + " likes"
+                    likes.text = snapshot.childrenCount.toString() + mContext.getString(R.string.postLikes)
                 }
             }
             override fun onCancelled(error: DatabaseError)
@@ -125,7 +133,7 @@ class PostAdapter(private val mContext: Context, private  val mPost: List<Post>)
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (snapshot.exists())
                 {
-                    comments.text = "view all " + snapshot.childrenCount.toString() + " comments"
+                    comments.text = mContext.getString(R.string.viewAllPost) + snapshot.childrenCount.toString() + mContext.getString(R.string.commentsPost)
                 }
             }
             override fun onCancelled(error: DatabaseError)
@@ -240,6 +248,19 @@ class PostAdapter(private val mContext: Context, private  val mPost: List<Post>)
             {
             }
         })
+    }
+
+    private fun addNotifications(userId: String, postId: String)
+    {
+        val notiRef = FirebaseDatabase.getInstance().reference.child("Notifications").child(userId)
+
+        val notiMap = HashMap<String, Any>()
+        notiMap["userid"] = firebaseUser!!.uid
+        notiMap["text"] = "Liked your post"
+        notiMap["postid"] = postId
+        notiMap["ispost"] = true
+
+        notiRef.push().setValue(notiMap)
     }
 
 

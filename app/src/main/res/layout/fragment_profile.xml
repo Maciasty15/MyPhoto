@@ -102,7 +102,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="0"
-                                android:textSize="12dp"
+                                android:textSize="13dp"
                                 android:textStyle="bold"
                                 android:textColor="@android:color/black"
                                 />
@@ -110,7 +110,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/posts_Profilefrgment"
-                                android:textSize="12dp"
+                                android:textSize="13dp"
                                 android:textColor="@android:color/black"
 
                                 />
@@ -130,7 +130,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="0"
-                                android:textSize="12dp"
+                                android:textSize="13dp"
                                 android:textStyle="bold"
                                 android:textColor="@android:color/black"
                                 />
@@ -138,7 +138,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/followers_Profilefrgment"
-                                android:textSize="12dp"
+                                android:textSize="13dp"
                                 android:textColor="@android:color/black"
 
                                 />
@@ -158,7 +158,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="0"
-                                android:textSize="12dp"
+                                android:textSize="13dp"
                                 android:textStyle="bold"
                                 android:textColor="@android:color/black"
                                 />
@@ -166,12 +166,11 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/following_Profilefrgment"
-                                android:textSize="12dp"
+                                android:textSize="13dp"
                                 android:textColor="@android:color/black"
 
                                 />
-
-
+                            
                         </LinearLayout>
 
 
@@ -181,7 +180,7 @@
 
                         android:id="@+id/edit_account_settings_btn"
                         android:layout_width="170dp"
-                        android:layout_height="36dp"
+                        android:layout_height="40dp"
                         android:text="@string/edit_profile_ProfileFragment"
                         android:textAllCaps="false"
                         android:layout_marginTop="2dp"

@@ -12,9 +12,6 @@ import com.example.myphoto.fragments.SearchFragment
 
 class MainActivity : AppCompatActivity() {
 
-
-    internal var selectedFragment: Fragment? = null
-
     private val onNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
             R.id.nav_home -> {

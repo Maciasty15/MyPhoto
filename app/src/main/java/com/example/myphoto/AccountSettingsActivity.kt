@@ -160,11 +160,11 @@ class AccountSettingsActivity : AppCompatActivity() {
             else -> {
 
                 val progressDialog = ProgressDialog(this)
-                progressDialog.setTitle("Account Settings")
-                progressDialog.setMessage("Please wait, we are updating your profile...")
+                progressDialog.setTitle(getString(R.string.settingsDialog))
+                progressDialog.setMessage(getString(R.string.waitDialogSettings))
                 progressDialog.show()
 
-                val fileRef = storageProfilePicRef!!.child(firebaseUser.uid + ".jpg")
+                val fileRef = storageProfilePicRef!!.child(firebaseUser.uid + getString(R.string.jpg))
 
                 val uploadTask: StorageTask<*>
                 uploadTask = fileRef.putFile(imageUri!!)
